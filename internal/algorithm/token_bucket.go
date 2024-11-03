@@ -18,6 +18,7 @@ func (b *TokenBucket) IsRequestAllowed() bool {
 	defer b.mx.Unlock()
 
 	if b.bucketCount < b.capacity {
+		b.bucketCount++
 		return true
 	}
 
@@ -28,19 +29,21 @@ func NewTokenBucket(capacity int) *TokenBucket {
 	tokenBucket := TokenBucket{
 		capacity: capacity,
 	}
+
+	go startTicker(&tokenBucket)
+	return &tokenBucket
+}
+
+func startTicker(tokenBucket *TokenBucket) {
 	ticker := time.NewTicker(time.Second)
 
-	go func() {
-		for {
-			select {
-			case t := <-ticker.C:
-				fmt.Println("resetting bucketCount at: ", t)
-				tokenBucket.mx.Lock()
-				tokenBucket.bucketCount = 0
-				tokenBucket.mx.Unlock()
-			}
+	for {
+		select {
+		case t := <-ticker.C:
+			fmt.Println("resetting bucketCount at: ", t)
+			tokenBucket.mx.Lock()
+			tokenBucket.bucketCount = 0
+			tokenBucket.mx.Unlock()
 		}
-	}()
-
-	return &tokenBucket
+	}
 }
