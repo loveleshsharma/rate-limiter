@@ -1,4 +1,4 @@
-package algorithm
+package strategy
 
 import (
 	"fmt"
@@ -30,20 +30,20 @@ func NewTokenBucket(capacity int) *TokenBucket {
 		capacity: capacity,
 	}
 
-	go startTicker(&tokenBucket)
+	go tokenBucket.startTicker()
 	return &tokenBucket
 }
 
-func startTicker(tokenBucket *TokenBucket) {
-	ticker := time.NewTicker(time.Second)
+func (b *TokenBucket) startTicker() {
+	ticker := time.NewTicker(time.Second * 5)
 
 	for {
 		select {
 		case t := <-ticker.C:
 			fmt.Println("resetting bucketCount at: ", t)
-			tokenBucket.mx.Lock()
-			tokenBucket.bucketCount = 0
-			tokenBucket.mx.Unlock()
+			b.mx.Lock()
+			b.bucketCount = 0
+			b.mx.Unlock()
 		}
 	}
 }

@@ -1,17 +1,17 @@
 package internal
 
-import "github.com/loveleshsharma/rate-limiter/internal/algorithm"
+import "github.com/loveleshsharma/rate-limiter/internal/strategy"
 
 type RateLimiter struct {
-	algo algorithm.RateLimitAlgorithm
+	strategy strategy.RateLimitStrategy
 }
 
 func (r RateLimiter) IsRequestAllowed() bool {
-	return r.algo.IsRequestAllowed()
+	return r.strategy.IsRequestAllowed()
 }
 
-func NewRateLimiter(algo algorithm.RateLimitAlgorithm) RateLimiter {
+func NewRateLimiter(strategy strategy.RateLimitStrategy) RateLimiter {
 	return RateLimiter{
-		algo: algo,
+		strategy: strategy,
 	}
 }
