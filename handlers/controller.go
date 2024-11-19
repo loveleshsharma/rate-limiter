@@ -2,12 +2,12 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/loveleshsharma/rate-limiter/internal"
+	"github.com/loveleshsharma/rate-limiter/pkg"
 	"net/http"
 )
 
 type Controller struct {
-	rateLimiter internal.RateLimiter
+	rateLimiter pkg.RateLimiter
 }
 
 func (c Controller) RateLimit(ctx *gin.Context) {
@@ -22,7 +22,7 @@ func (c Controller) RateLimit(ctx *gin.Context) {
 	ctx.Status(http.StatusTooManyRequests)
 }
 
-func NewController(rateLimiter internal.RateLimiter) Controller {
+func NewController(rateLimiter pkg.RateLimiter) Controller {
 	return Controller{
 		rateLimiter: rateLimiter,
 	}

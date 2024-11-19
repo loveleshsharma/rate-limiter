@@ -1,6 +1,6 @@
-package internal
+package pkg
 
-import "github.com/loveleshsharma/rate-limiter/internal/strategy"
+import "github.com/loveleshsharma/rate-limiter/pkg/strategy"
 
 type RateLimiter struct {
 	strategy strategy.RateLimitStrategy
