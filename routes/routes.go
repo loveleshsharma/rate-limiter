@@ -10,7 +10,7 @@ import (
 func SetupRoutes() *gin.Engine {
 	router := gin.Default()
 
-	rateLimiter := pkg.NewRateLimiter(strategy.NewTokenBucket(5))
+	rateLimiter := pkg.NewRateLimiter(strategy.TokenBucketStrategy)
 	rateLimitController := handlers.NewController(rateLimiter)
 
 	router.GET("/ratelimit", rateLimitController.RateLimit)
