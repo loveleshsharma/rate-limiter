@@ -3,9 +3,9 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/loveleshsharma/rate-limiter/handlers"
-	"github.com/loveleshsharma/rate-limiter/internal/strategy"
 	"github.com/loveleshsharma/rate-limiter/pkg"
 	"github.com/loveleshsharma/rate-limiter/pkg/rule"
+	"github.com/loveleshsharma/rate-limiter/pkg/strategy"
 	"time"
 )
 

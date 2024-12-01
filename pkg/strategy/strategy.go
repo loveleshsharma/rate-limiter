@@ -1,6 +1,9 @@
 package strategy
 
-import "github.com/loveleshsharma/rate-limiter/pkg/rule"
+import (
+	"github.com/loveleshsharma/rate-limiter/internal/strategies"
+	"github.com/loveleshsharma/rate-limiter/pkg/rule"
+)
 
 type Strategy int
 
@@ -12,9 +15,9 @@ func (s Strategy) GetStrategy(rule rule.Rule) RateLimitStrategy {
 	var rateLimitStrategy RateLimitStrategy
 	switch s {
 	case Tokenbucket:
-		rateLimitStrategy = NewTokenBucket(rule)
+		rateLimitStrategy = strategies.NewTokenBucket(rule)
 	default:
-		rateLimitStrategy = NewTokenBucket(rule)
+		rateLimitStrategy = strategies.NewTokenBucket(rule)
 	}
 
 	return rateLimitStrategy

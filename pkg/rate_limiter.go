@@ -1,8 +1,8 @@
 package pkg
 
 import (
-	"github.com/loveleshsharma/rate-limiter/internal/strategy"
 	"github.com/loveleshsharma/rate-limiter/pkg/rule"
+	"github.com/loveleshsharma/rate-limiter/pkg/strategy"
 )
 
 type RateLimiter struct {
