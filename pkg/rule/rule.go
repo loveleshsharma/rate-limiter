@@ -3,15 +3,13 @@ package rule
 import "time"
 
 type Rule struct {
-	endpoint        string
-	timeUnit        time.Duration
-	requestsPerUnit int
+	TimeUnit        time.Duration
+	RequestsPerUnit int
 }
 
-func NewRule(endpoint string, timeUnit time.Duration, requestsPerUnit int) Rule {
+func NewRule(timeUnit time.Duration, requestsPerUnit int) Rule {
 	return Rule{
-		endpoint:        endpoint,
-		timeUnit:        timeUnit,
-		requestsPerUnit: requestsPerUnit,
+		TimeUnit:        timeUnit,
+		RequestsPerUnit: requestsPerUnit,
 	}
 }

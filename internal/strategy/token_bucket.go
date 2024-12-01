@@ -2,6 +2,7 @@ package strategy
 
 import (
 	"fmt"
+	"github.com/loveleshsharma/rate-limiter/pkg/rule"
 	"sync"
 	"time"
 )
@@ -25,17 +26,17 @@ func (b *TokenBucket) IsRequestAllowed() bool {
 	return false
 }
 
-func NewTokenBucket(capacity int) *TokenBucket {
+func NewTokenBucket(rule rule.Rule) *TokenBucket {
 	tokenBucket := TokenBucket{
-		capacity: capacity,
+		capacity: rule.RequestsPerUnit,
 	}
 
-	go tokenBucket.startTicker()
+	go tokenBucket.startTicker(rule)
 	return &tokenBucket
 }
 
-func (b *TokenBucket) startTicker() {
-	ticker := time.NewTicker(time.Second * 5)
+func (b *TokenBucket) startTicker(rule rule.Rule) {
+	ticker := time.NewTicker(time.Duration(rule.RequestsPerUnit) * rule.TimeUnit)
 
 	for {
 		select {
